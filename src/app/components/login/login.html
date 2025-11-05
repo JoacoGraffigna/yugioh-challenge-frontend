@@ -1,0 +1,39 @@
+<div class="auth-container">
+  <h1>{{ isRegisterMode ? 'Crear Cuenta' : 'Iniciar Sesión' }}</h1>
+
+  <form (ngSubmit)="onSubmit()" #authForm="ngForm" class="auth-form">
+    <input
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      placeholder="Correo electrónico"
+      required
+    />
+
+    <input
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      placeholder="Contraseña"
+      required
+    />
+
+    <button type="submit" [disabled]="loading || !authForm.valid">
+      {{ isRegisterMode ? 'Registrarse' : 'Ingresar' }}
+    </button>
+  </form>
+
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+  <div class="toggle-mode">
+    <span *ngIf="!isRegisterMode">
+      ¿No tenés cuenta?
+      <a (click)="toggleMode()">Crear una cuenta</a>
+    </span>
+    <span *ngIf="isRegisterMode">
+      ¿Ya tenés cuenta?
+      <a (click)="toggleMode()">Iniciar sesión</a>
+    </span>
+  </div>
+</div>

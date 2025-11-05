@@ -1,0 +1,68 @@
+<div class="container">
+    <h1>Administrar Cartas</h1>
+
+    <div class="top-bar">
+        <button class="back-btn" routerLink="/">Volver</button>
+    </div>
+
+    <div *ngIf="message" class="message" [ngClass]="messageType">
+        {{ message }}
+    </div>
+
+
+    <form (ngSubmit)="saveCard()" *ngIf="!loading" class="card-form">
+        <h2 *ngIf="!editing">Crear nueva carta</h2>
+        <h2 *ngIf="editing">Editando: {{ newCard.name }}</h2>
+
+        <div class="form-grid">
+            <input type="text" placeholder="Nombre" [(ngModel)]="newCard.name" name="name" required>
+            <input type="text" placeholder="ID Carta" [(ngModel)]="newCard.cardId" name="cardId" required
+                [readonly]="editing">
+            <input type="text" placeholder="Código Serie" [(ngModel)]="newCard.seriesCode" name="seriesCode" required>
+            <input type="text" placeholder="Tipo" [(ngModel)]="newCard.type" name="type" required>
+            <input type="text" placeholder="Subtipo" [(ngModel)]="newCard.subtype" name="subtype" required>
+            <input type="number" placeholder="ATK" [(ngModel)]="newCard.atk" name="atk">
+            <input type="number" placeholder="DEF" [(ngModel)]="newCard.def" name="def">
+            <input type="number" placeholder="Estrellas" [(ngModel)]="newCard.stars" name="stars">
+        </div>
+
+        <textarea placeholder="Descripción"  [(ngModel)]="newCard.description" name="description" class="description-textarea" required></textarea>
+
+        <div class="image-section">
+            <p class="section-label">Imagen de la carta</p>
+            <div class="image-options">
+                <label class="file-upload">
+                    <span>Seleccionar imagen</span>
+                    <input type="file" (change)="onFileChange($event)">
+                </label>
+                <span class="or-text">— o —</span>
+                <input type="text" placeholder="Pegá la URL (https://...)" [(ngModel)]="imageUrlManual"
+                    name="imageUrlManual">
+            </div>
+            <small class="hint">Podés subir un archivo o pegar una URL de ImgBB.</small>
+        </div>
+
+        <div class="btn-group">
+            <button type="submit">{{ editing ? 'Actualizar Carta' : 'Crear Carta' }}</button>
+            <button *ngIf="editing" type="button" class="cancel-btn" (click)="cancelEdit()">Cancelar</button>
+        </div>
+    </form>
+
+    <p *ngIf="loading" class="loading-text">Procesando...</p>
+
+    <hr class="divider">
+
+    <h2 class="list-title">Cartas Existentes</h2>
+    <div class="cards-list">
+        <div *ngFor="let card of cards" class="card-item">
+            <img [src]="card.imageUrl" [alt]="card.name" width="150">
+            <h3>{{ card.name }}</h3>
+            <p>{{ card.description }}</p>
+            <p><strong>{{ card.type }}</strong> - {{ card.subtype }}</p>
+            <div class="actions">
+                <button class="edit-btn" (click)="editCard(card)">Editar</button>
+                <button class="delete-btn" (click)="deleteCard(card.id!)">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="top-nav">
+  <div class="nav-buttons">
+    <button 
+      class="nav-btn" 
+      routerLink="/login" 
+      *ngIf="!authService.isLoggedIn()">
+      Login
+    </button>
+
+    <button 
+      class="nav-btn" 
+      (click)="logout()" 
+      *ngIf="authService.isLoggedIn()">
+      Logout
+    </button>
+  </div>
+</div>
+
+<div class="container">
+  <h1>Cartas Yu-Gi-Oh</h1>
+
+  <div *ngIf="authService.isAdmin()" class="top-bar">
+    <button class="create-btn" routerLink="/admin/upload">Administrar cartas</button>
+  </div>
+
+  <div class="filters">
+
+    <input
+      type="text"
+      placeholder="Buscar por nombre..."
+      [(ngModel)]="searchTerm"
+      (input)="applyFilters()"
+    />
+
+    <select [(ngModel)]="typeFilter" (change)="applyFilters()">
+      <option value="">Todos los tipos</option>
+      <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+    </select>
+
+    <select [(ngModel)]="subtypeFilter" (change)="applyFilters()">
+      <option value="">Todos los subtipos</option>
+      <option *ngFor="let subtype of subtypes" [value]="subtype">{{ subtype }}</option>
+    </select>
+
+    <div class="atk-filters">
+      <input
+        type="number"
+        placeholder="ATK mín."
+        [(ngModel)]="atkMin"
+        (input)="applyFilters()"
+        min="0"
+      />
+      <input
+        type="number"
+        placeholder="ATK máx."
+        [(ngModel)]="atkMax"
+        (input)="applyFilters()"
+        min="0"
+      />
+    </div>
+  </div>
+
+  <div class="cards-list">
+    <div *ngFor="let card of paginatedCards" class="card-item">
+      <img [src]="card.imageUrl" [alt]="card.name" width="150" />
+      <h3>{{ card.name }}</h3>
+      <p>{{ card.description }}</p>
+      <p><strong>ATK:</strong> {{ card.atk }} / <strong>DEF:</strong> {{ card.def }}</p>
+    </div>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+  </div>
+</div>
