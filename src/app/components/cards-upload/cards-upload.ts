@@ -60,12 +60,12 @@ export class CardsUpload {
     this.loading = true;
 
     if (
-      !this.newCard.name ||
-      !this.newCard.cardId ||
-      !this.newCard.seriesCode ||
-      !this.newCard.type ||
-      !this.newCard.subtype ||
-      (!this.newCard.imageUrl && !this.imageUrlManual) 
+      !this.newCard.name?.trim() ||
+      !this.newCard.cardId?.trim() ||
+      !this.newCard.seriesCode?.trim() ||
+      !this.newCard.type?.trim() ||
+      !this.newCard.subtype?.trim() ||
+      (!this.newCard.imageUrl && !this.imageUrlManual.trim())
     ) {
       this.message = 'Por favor, completa todos los campos obligatorios.';
       this.messageType = 'error';
