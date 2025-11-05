@@ -65,7 +65,7 @@ export class CardsUpload {
       !this.newCard.seriesCode?.trim() ||
       !this.newCard.type?.trim() ||
       !this.newCard.subtype?.trim() ||
-      (!this.newCard.imageUrl && !this.imageUrlManual.trim())
+      (!this.newCard.imageUrl && !this.imageUrlManual?.trim() && !this.selectedFile)
     ) {
       this.message = 'Por favor, completa todos los campos obligatorios.';
       this.messageType = 'error';
@@ -73,6 +73,7 @@ export class CardsUpload {
       this.spinner.hide();
       return;
     }
+
 
     try {
       let imageUrl = '';
