@@ -46,7 +46,6 @@ textarea:focus {
   box-shadow: 0 0 6px rgba(255, 204, 0, 0.2);
 }
 
-/* Imagen */
 .image-section {
   border: 1px solid #444;
   border-radius: 10px;
@@ -101,7 +100,6 @@ textarea:focus {
 
 .image-options input[type="text"] {
   flex: 1;
-  min-width: 220px;
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #444;
@@ -309,4 +307,16 @@ textarea:focus {
   width: 97%;
   min-height: 120px; 
   resize: vertical; 
+}
+
+@media (max-width: 677px) {
+  .description-textarea {
+    width: 95%;
+  }
+}
+
+@media (max-width: 485px) {
+  .description-textarea {
+    width: 92%;
+  }
 }
