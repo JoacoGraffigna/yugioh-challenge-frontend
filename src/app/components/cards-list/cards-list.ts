@@ -5,7 +5,7 @@ import { Card, CardsService } from '../../services/cards';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SpinnerService } from '../../services/spinner';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-cards-list',
